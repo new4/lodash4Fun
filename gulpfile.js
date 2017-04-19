@@ -1,8 +1,9 @@
-var gulp = require("gulp");
+var gulp = require('gulp');
+var fs = require('fs');
 var del = require('del');
-var lineReader = require('line-reader');
 var gulpSequence = require('gulp-sequence');
 var mergeStream = require('merge-stream');
+var vinylPaths = require('vinyl-paths');
 
 var lodashClass = [
   'array',
@@ -18,91 +19,76 @@ var lodashClass = [
   'util'
 ];
 
-function getFilePathInfo() {
+function abstractFilePath(classFileName) {
+  var result = [];
   var pattern = /\.\/\w+/g;
-  return lodashClass.map(function(item, index, arr) {
+  var classFilePath = `./lodash/${classFileName}.js`;
+  var data = fs.readFileSync(classFilePath, "utf-8");
+  var _from = [];
+  data.replace(pattern, function (filename) {
+    filename = filename.replace(/\.\//, "").trim();
+    _from.push(`./lodash/${filename}.js`);
+  })
+  result.push({
+    'from': _from,
+    'to': `./src/${classFileName}`
+  });
+  return result;
+}
+
+function getFilePathInfo() {
+  return lodashClass.map(function (item, index, arr) {
     var result = [];
     var classFile = `./lodash/${item}.js`;
-    result.push({'from': classFile, 'to': `./src`});
-
-    lineReader.eachLine(classFile, function(line, last) {
-      line.replace(pattern, function(filename) {
-        filename = filename.replace(/\.\//, "").trim();
-        result.push({'from': `./lodash/${filename}.js`, 'to': `./src/${item}`});
-      })
-
-      if(last){
-        return result;
-      }
-    })
+    result.push({
+      'from': classFile,
+      'to': `./src`
+    });
+    result = result.concat(abstractFilePath(item));
+    return result;
   });
 }
 
-gulp.task("g", function() {
-  console.log(getFilePathInfo());
-});
-
-function copy(filename, src, cb) {
-  return gulp.src(filename).pipe(gulp.dest(src)).on("end", function() {
-    cb && cb();
-  });
+function copy(filename, src) {
+  return gulp.src(filename).pipe(vinylPaths(del)).pipe(gulp.dest(src));
 }
 
 // copy
 // ----------------------------------------------------------
-// '_' 开头的文件
-gulp.task("copy:common", function() {
+gulp.task("copy:common", function (cb) {
   var filename = './lodash/_*.js';
   var dest = './src/_common';
-  return copy(filename, dest, function() {
-    del(filename);
-  });
+  return copy(filename, dest);
 });
 
-// 某一分类及其对应的文件
-gulp.task("copy:files", function() {
-  var pattern = /\.\/\w+/g;
-  lodashClass.forEach(function(item) {
-    var classFile = `./lodash/${item}.js`;
-    copy(classFile, './src');
+gulp.task("copy:main", function (cb) {
+  return copy("./lodash/lodash.js", './src');
+})
 
-    var src = `./src/${item}`;
-    var filesNameArr = [];
-    lineReader.eachLine(classFile, function(line, last) {
-      line.replace(pattern, function(filename) {
-        filename = filename.replace(/\.\//, "");
-        filesNameArr.push(filename.trim());
-      })
-
-      if (last) {
-        filesNameArr.forEach(function(item) {
-          var filename = `./lodash/${item}.js`;
-          copy(filename, src, function() {
-            del(filename);
-          });
-        });
-        del(classFile);
-      }
-    });
-  });
+gulp.task("copy:files", function (cb) {
+  var filePathInfo = getFilePathInfo();
+  var stream = mergeStream();
+  filePathInfo.map(function (item) {
+    stream.add(copy(item[0]['from'], item[0]['to']));
+    stream.add(copy(item[1]['from'], item[1]['to']));
+  })
+  return stream.isEmpty() ? null : stream;
 });
 
-gulp.task("copy:remain", function(cb) {
-  return copy("./lodash/*.js", './src/_remain', function() {
-    del('./lodash');
-  });
-})
+gulp.task("copy:remain", function (cb) {
+  return copy("./lodash/*.js", './src/_remain');
+});
 
-gulp.task("copy:main", function(cb) {
-  return copy("./lodash/lodash.js", './src', function() {
-    del('./lodash/lodash.js');
-  });
-})
-
-gulp.task("copy", gulpSequence("copy:common", "copy:files", "copy:main", "copy:remain"));
+gulp.task("copy", gulpSequence([
+  "copy:common", "copy:files", "copy:main"
+], "copy:remain", "clean:lodash"));
 
 // clean
 // ----------------------------------------------------------
-gulp.task("clean:js", function() {
-  del(["./src/**/*.js"]);
+gulp.task("clean:js", function () {
+  return del(["./src/**/*.js"]);
+});
+
+gulp.task("clean:lodash", function () {
+  return del(["./lodash"]);
 });
