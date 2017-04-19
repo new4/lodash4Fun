@@ -1,1 +1,12 @@
-console.log(_.chunk([1,2,3,4,5,6,7,8], 3))
+console.log(typeof unknownVariable) // 'undefined'
+console.log(typeof undefined) // 'undefined'
+console.log(typeof null)  // 'object'
+console.log(typeof true)  // 'boolean'
+console.log(typeof 123) // 'number'
+console.log(typeof "abc") // 'string'
+console.log(typeof function() {}) // 'function'
+console.log(typeof {})  // 'object'
+console.log(typeof [])  // 'object'
+console.log(typeof new RegExp())  // 'object'
+console.log(typeof new Number(0)) // 'object'
+console.log(typeof new String(''))  // 'object'
