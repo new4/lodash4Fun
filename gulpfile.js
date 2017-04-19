@@ -4,6 +4,7 @@ var del = require('del');
 var gulpSequence = require('gulp-sequence');
 var mergeStream = require('merge-stream');
 var vinylPaths = require('vinyl-paths');
+var browserSync = require('browser-sync').create();
 
 var lodashClass = [
   'array',
@@ -92,3 +93,22 @@ gulp.task("clean:js", function () {
 gulp.task("clean:lodash", function () {
   return del(["./lodash"]);
 });
+
+// test
+// ----------------------------------------------------------
+var src = ["./myCode/index.html"];
+var srcJs = ["./myCode/js/*.js"];
+src = src.concat(srcJs);
+
+gulp.task('serve', function () {
+  browserSync.init({
+    server: "./myCode",
+    port: 8090
+  });
+
+  gulp.watch(src).on("change", function () {
+    browserSync.reload();
+  });
+});
+
+gulp.task('default', ['serve']);

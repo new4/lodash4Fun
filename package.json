@@ -1,28 +1,29 @@
 {
-    "name": "lodash4fun",
-    "version": "1.0.0",
-    "description": "无聊时候，读读源码",
-    "main": "index.js",
-    "scripts": {
-        "generate": "gulp clean:js && npm run getlodash && gulp copy",
-        "getlodash": "lodash modularize -o ./lodash",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/new4/lodash4Fun.git"
-    },
-    "devDependencies": {
-        "del": "^2.2.2",
-        "gulp": "^3.9.1",
-        "gulp-sequence": "^0.4.6",
-        "merge-stream": "^1.0.1",
-        "vinyl-paths": "^2.1.0"
-    },
-    "author": "new4",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/new4/lodash4Fun/issues"
-    },
-    "homepage": "https://github.com/new4/lodash4Fun#readme"
+  "name": "lodash4fun",
+  "version": "1.0.0",
+  "description": "无聊时候，读读源码",
+  "main": "index.js",
+  "scripts": {
+    "generate": "gulp clean:js && npm run getlodash && gulp copy",
+    "getlodash": "lodash modularize -o ./lodash",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/new4/lodash4Fun.git"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-sequence": "^0.4.6",
+    "merge-stream": "^1.0.1",
+    "vinyl-paths": "^2.1.0"
+  },
+  "author": "new4",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/new4/lodash4Fun/issues"
+  },
+  "homepage": "https://github.com/new4/lodash4Fun#readme"
 }
