@@ -103,7 +103,7 @@ src = src.concat(srcJs);
 gulp.task('serve', function () {
   browserSync.init({
     server: "./myCode",
-    port: 8090
+    port: 8060
   });
 
   gulp.watch(src).on("change", function () {

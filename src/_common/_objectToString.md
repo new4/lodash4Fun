@@ -5,7 +5,7 @@
 ```js
 
 function objectToString(value) {
-  return Object.prototype.toString;.call(value);
+  return Object.prototype.toString.call(value);
 }
 ```
 

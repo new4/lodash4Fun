@@ -24,8 +24,9 @@ var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
  * @returns {string} Returns the raw `toStringTag`.
  */
 function getRawTag(value) {
+  // 给定属性 symToStringTag 在当前对象实例中是否存在
   var isOwn = hasOwnProperty.call(value, symToStringTag),
-      tag = value[symToStringTag];
+      tag = value[symToStringTag]; // 如果有, 为 'Map', 'Set', 'Promise' 等
 
   try {
     value[symToStringTag] = undefined;
