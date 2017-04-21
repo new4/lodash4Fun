@@ -8,6 +8,7 @@ var NAN = 0 / 0;
 var reTrim = /^\s+|\s+$/g;
 
 /** Used to detect bad signed hexadecimal string values. */
+// -|+在js中都可以作为unary operator, 也就是sign, 所以0xf => +0xf => 15, -0xf => -15, bad的含义在于这不是正常的正负数的16进制表示法
 var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
 
 /** Used to detect binary string values. */
