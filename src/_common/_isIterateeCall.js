@@ -1,7 +1,7 @@
 var eq = require('./eq'),
-    isArrayLike = require('./isArrayLike'),
-    isIndex = require('./_isIndex'),
-    isObject = require('./isObject');
+  isArrayLike = require('./isArrayLike'),
+  isIndex = require('./_isIndex'),
+  isObject = require('./isObject');
 
 /**
  * Checks if the given arguments are from an iteratee call.
@@ -19,9 +19,8 @@ function isIterateeCall(value, index, object) {
   }
   var type = typeof index;
   if (type == 'number'
-        ? (isArrayLike(object) && isIndex(index, object.length))
-        : (type == 'string' && index in object)
-      ) {
+    ? (isArrayLike(object) && isIndex(index, object.length))
+    : (type == 'string' && index in object)) {
     return eq(object[index], value);
   }
   return false;
