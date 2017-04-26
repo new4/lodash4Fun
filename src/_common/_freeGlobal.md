@@ -1,4 +1,4 @@
-# _freeGlobal
+# freeGlobal
 
 检测 `node` 环境中的全局对象
 
