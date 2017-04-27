@@ -8,5 +8,3 @@ function copyArray(source, array) {
   }
   return array;
 }
-
-console.log(copyArray([1, 2, 3, 4, 5]));
