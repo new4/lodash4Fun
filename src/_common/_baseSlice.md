@@ -1,4 +1,4 @@
-# _baseSlice
+# baseSlice
 
 函数调用 `baseSlice(array, start, end)`
 
