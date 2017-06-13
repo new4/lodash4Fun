@@ -1,39 +1,15 @@
-var nativeFloor = Math.floor,
-  nativeRandom = Math.random;
+/** Used to match words composed of alphanumeric characters. */
+var reAsciiWord = /[^\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]+/g;
 
-function baseRandom(lower, upper) {
-  return lower + nativeFloor(nativeRandom() * (upper - lower + 1));
+/**
+ * Splits an ASCII `string` into an array of its words.
+ *
+ * @private
+ * @param {string} The string to inspect.
+ * @returns {Array} Returns the words of `string`.
+ */
+function asciiWords(string) {
+  return string.match(reAsciiWord) || [];
 }
 
-function shuffleSelf(array, size) {
-  var index = -1,
-    length = array.length,
-    lastIndex = length - 1;
-
-  size = size === undefined
-    ? length
-    : size;
-  while (++index < size) {
-    console.log("--------");
-    var rand = baseRandom(index, lastIndex),
-      value = array[rand];
-
-    array[rand] = array[index];
-    array[index] = value;
-  }
-  array.length = size;
-  return array;
-}
-
-console.log(shuffleSelf([
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10
-]))
+console.log(asciiWords("mm!b!aC!CA1123@#hag"))
