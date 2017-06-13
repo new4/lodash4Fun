@@ -36,4 +36,4 @@ console.log(shuffleSelf([
   8,
   9,
   10
-], 14))
+]))
