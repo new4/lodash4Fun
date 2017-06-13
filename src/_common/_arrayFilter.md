@@ -1,4 +1,4 @@
-# _arrayFilter
+# arrayFilter
 
 调用 `arrayFilter(array, predicate)`
 

@@ -1,4 +1,4 @@
-# _apply
+# apply
 
 调用 `apply(func, thisArg, args)` 将函数 `func` 中的 `this` 绑定到 `thisArg`, 同时传如参数 `args` 作为调用参数。
 

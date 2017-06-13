@@ -1,4 +1,4 @@
-# _baseIndexOf
+# baseIndexOf
 
 调用 `baseIndexOf(array, value, fromIndex)`
 

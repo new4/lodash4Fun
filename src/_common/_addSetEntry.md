@@ -1,4 +1,4 @@
-# _addSetEntry
+# addSetEntry
 
 用法 `addSetEntry(set, value)`, 给 `set` 添加键值对 `pair`
 

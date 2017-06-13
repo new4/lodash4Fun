@@ -1,4 +1,4 @@
-# _baseGetTag
+# baseGetTag
 
 用于获取对象标签(tag)
 

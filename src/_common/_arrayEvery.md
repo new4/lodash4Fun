@@ -1,4 +1,4 @@
-# _arrayEvery
+# arrayEvery
 
 调用 `arrayEvery(array, predicate)`
 

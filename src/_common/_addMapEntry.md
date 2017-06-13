@@ -1,4 +1,4 @@
-# _addMapEntry
+# addMapEntry
 
 用法 `addMapEntry(map, pair)`, 给 `map` 添加键值对 `pair`
 
