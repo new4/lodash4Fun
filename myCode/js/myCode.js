@@ -1,11 +1,39 @@
-function baseFindIndex(array, predicate, fromIndex, fromRight) {
-  var length = array.length,
-      index = fromIndex + (fromRight ? 1 : -1);
+var nativeFloor = Math.floor,
+  nativeRandom = Math.random;
 
-  while ((fromRight ? index-- : ++index < length)) {
-    if (predicate(array[index], index, array)) {
-      return index;
-    }
-  }
-  return -1;
+function baseRandom(lower, upper) {
+  return lower + nativeFloor(nativeRandom() * (upper - lower + 1));
 }
+
+function shuffleSelf(array, size) {
+  var index = -1,
+    length = array.length,
+    lastIndex = length - 1;
+
+  size = size === undefined
+    ? length
+    : size;
+  while (++index < size) {
+    console.log("--------");
+    var rand = baseRandom(index, lastIndex),
+      value = array[rand];
+
+    array[rand] = array[index];
+    array[index] = value;
+  }
+  array.length = size;
+  return array;
+}
+
+console.log(shuffleSelf([
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10
+], 14))
