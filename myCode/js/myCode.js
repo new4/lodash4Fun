@@ -1,10 +1,11 @@
-function copyArray(source, array) {
-  var index = -1,
-    length = source.length;
+function baseFindIndex(array, predicate, fromIndex, fromRight) {
+  var length = array.length,
+      index = fromIndex + (fromRight ? 1 : -1);
 
-  array || (array = Array(length));
-  while (++index < length) {
-    array[index] = source[index];
+  while ((fromRight ? index-- : ++index < length)) {
+    if (predicate(array[index], index, array)) {
+      return index;
+    }
   }
-  return array;
+  return -1;
 }
